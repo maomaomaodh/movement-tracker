@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5f8f4">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="运动打卡">
+<title>我的运动打卡</title>
+<style>
+:root{--bg:#f5f8f4;--card:#fff;--ink:#24352c;--muted:#7d8b82;--line:#e2eae2;--green:#367a58;--green-soft:#e3f1e7;--dance:#f0e4ff;--gym:#dff2e5;--swim:#dfefff}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:calc(env(safe-area-inset-top) + 18px) 16px calc(env(safe-area-inset-bottom) + 28px);font-size:16px}
+main{max-width:520px;margin:0 auto}.top{display:flex;align-items:center;justify-content:space-between;margin:4px 0 20px}.eyebrow{font-size:12px;color:var(--muted);letter-spacing:.08em}.title{font-size:27px;font-weight:800;margin:4px 0}.sub{color:var(--muted);font-size:13px}.mark{width:48px;height:48px;border-radius:17px;background:var(--green-soft);display:grid;place-items:center;font-size:25px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:16px;margin-bottom:14px;box-shadow:0 5px 20px #24462c08}
+.monthbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}.monthlabel{font-size:19px;font-weight:750}.nav{width:38px;height:38px;border:1px solid var(--line);background:white;border-radius:13px;font-size:22px;color:var(--ink)}
+.week,.calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}.week div{text-align:center;color:var(--muted);font-size:12px;padding:5px 0 9px}
+.day{min-height:60px;border:1px solid transparent;background:#fafcf9;border-radius:13px;padding:6px 2px 5px;display:flex;align-items:center;flex-direction:column;gap:6px;color:var(--ink);font:inherit}.day .num{font-size:13px}.day.selected{border-color:var(--green);background:#e8f4eb;box-shadow:inset 0 0 0 1px var(--green)}.day.today .num{font-weight:800;color:var(--green)}.dots{display:flex;gap:3px;min-height:7px}.dot{width:6px;height:6px;border-radius:50%}.dot.dance{background:#a67be1}.dot.gym{background:#4e9c69}.dot.swim{background:#5797d9}.legend{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:12px;margin-top:13px}.legend span{display:flex;align-items:center;gap:5px}
+.section-title{font-size:17px;font-weight:750;margin:0 0 4px}.selected-date{font-size:13px;color:var(--muted);margin-bottom:13px}
+.activity{width:100%;display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--line);border-radius:17px;background:#fff;text-align:left;margin:8px 0;color:var(--ink);font:inherit}.activity.active{border-color:var(--green);background:#f1f8f2}.emoji{width:45px;height:45px;display:grid;place-items:center;border-radius:14px;font-size:24px;flex-shrink:0}.emoji.dance{background:var(--dance)}.emoji.gym{background:var(--gym)}.emoji.swim{background:var(--swim)}.act-name{font-weight:700}.act-hint{font-size:12px;color:var(--muted);margin-top:3px}.grow{flex:1}.check{width:25px;height:25px;border:1.5px solid #cbd7ce;border-radius:50%;display:grid;place-items:center;color:white;font-size:14px}.active .check{background:var(--green);border-color:var(--green)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#f7faf6;border-radius:17px;padding:14px}.stat-label{font-size:12px;color:var(--muted)}.stat-num{font-size:27px;font-weight:800;margin-top:4px}.stat-num small{font-size:12px;font-weight:500;color:var(--muted)}
+.actions{display:flex;gap:9px;margin-top:12px}.secondary{border:1px solid var(--line);background:#fff;border-radius:13px;padding:10px 12px;color:var(--ink);font-size:13px}.primary{border:0;background:var(--green);color:#fff;border-radius:13px;padding:12px 14px;font-size:14px;font-weight:700}.hint{font-size:12px;line-height:1.6;color:var(--muted);margin:14px 3px}.toast{position:fixed;bottom:calc(env(safe-area-inset-bottom) + 16px);left:50%;transform:translateX(-50%);background:#23382b;color:white;padding:10px 15px;border-radius:14px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s}.toast.show{opacity:1}
+@media(max-width:370px){body{padding-left:10px;padding-right:10px}.card{padding:12px}.day{min-height:54px}.week,.calendar{gap:3px}}
+</style>
+</head>
+<body>
+<main>
+  <header class="top">
+    <div><div class="eyebrow">MY MOVEMENT JOURNAL</div><div class="title">我的运动打卡</div><div class="sub">一点点坚持，也值得被看见 ✨</div></div>
+    <div class="mark">🌿</div>
+  </header>
+  <section class="card">
+    <div class="monthbar"><button class="nav" id="prev" aria-label="上个月">‹</button><div class="monthlabel" id="monthLabel"></div><button class="nav" id="next" aria-label="下个月">›</button></div>
+    <div class="week"><div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div></div>
+    <div class="calendar" id="calendar"></div>
+    <div class="legend"><span><i class="dot dance"></i>跳舞</span><span><i class="dot gym"></i>健身</span><span><i class="dot swim"></i>游泳</span></div>
+  </section>
+  <section class="card">
+    <div class="section-title">记录当天运动</div><div class="selected-date" id="selectedDate"></div>
+    <div id="activities"></div>
+    <div class="actions"><button class="secondary" id="clearDay">清除当天记录</button><button class="primary grow" id="todayBtn">回到今天</button></div>
+  </section>
+  <section class="card">
+    <div class="section-title" style="margin-bottom:12px">本月小结</div>
+    <div class="stats">
+      <div class="stat"><div class="stat-label">运动天数</div><div class="stat-num" id="daysCount">0 <small>天</small></div></div>
+      <div class="stat"><div class="stat-label">运动项目总次数</div><div class="stat-num" id="sessionsCount">0 <small>次</small></div></div>
+    </div>
+    <div class="actions"><button class="secondary grow" id="exportBtn">导出备份（JSON）</button><button class="secondary grow" id="importBtn">导入备份</button><input id="fileInput" type="file" accept=".json,application/json" hidden></div>
+  </section>
+  <p class="hint">记录默认保存在这台 iPhone 的浏览器本地。建议定期点「导出备份」保存文件；清除 Safari 网站数据或更换设备可能导致记录丢失。添加到主屏幕后使用同一个图标打开，可获得更接近 App 的体验。</p>
+</main>
+<div class="toast" id="toast"></div>
+<script>
+const activities=[
+ {id:'dance',name:'跳舞',emoji:'💃',hint:'舞蹈、有氧舞等',cls:'dance'},
+ {id:'gym',name:'健身',emoji:'🏋️',hint:'力量训练、器械或综合健身',cls:'gym'},
+ {id:'swim',name:'游泳',emoji:'🏊',hint:'泳池或开放水域游泳',cls:'swim'}
+];
+const STORAGE='movement-tracker-v1';
+let records={};
+try{records=JSON.parse(localStorage.getItem(STORAGE)||'{}')||{}}catch(e){records={}}
+const now=new Date();let viewYear=now.getFullYear(),viewMonth=now.getMonth(),selectedKey=keyOf(now);
+function keyOf(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function dateFromKey(k){const [y,m,d]=k.split('-').map(Number);return new Date(y,m-1,d)}
+function save(){try{localStorage.setItem(STORAGE,JSON.stringify(records))}catch(e){toast('保存失败，请导出备份后清理空间')}}
+function toast(s){const t=document.getElementById('toast');t.textContent=s;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
+function renderCalendar(){
+ const cal=document.getElementById('calendar');cal.innerHTML='';
+ document.getElementById('monthLabel').textContent=`${viewYear}年${viewMonth+1}月`;
+ const first=new Date(viewYear,viewMonth,1).getDay(),count=new Date(viewYear,viewMonth+1,0).getDate();
+ for(let i=0;i<first;i++){const blank=document.createElement('div');cal.appendChild(blank)}
+ for(let day=1;day<=count;day++){
+  const d=new Date(viewYear,viewMonth,day),k=keyOf(d),list=records[k]||[];
+  const b=document.createElement('button');b.className='day'+(k===selectedKey?' selected':'')+(k===keyOf(new Date())?' today':'');
+  b.setAttribute('aria-label',`${viewYear}年${viewMonth+1}月${day}日${list.length?'，已记录'+list.length+'项':''}`);
+  const num=document.createElement('span');num.className='num';num.textContent=day;b.appendChild(num);
+  const dots=document.createElement('span');dots.className='dots';
+  activities.forEach(a=>{if(list.includes(a.id)){const dot=document.createElement('i');dot.className=`dot ${a.cls}`;dots.appendChild(dot)}});
+  b.appendChild(dots);b.addEventListener('click',()=>{selectedKey=k;render()});cal.appendChild(b)
+ }
+}
+function renderActivities(){
+ const wrap=document.getElementById('activities');wrap.innerHTML='';
+ const d=dateFromKey(selectedKey);
+ document.getElementById('selectedDate').textContent=`${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日 · 可多选`;
+ const chosen=records[selectedKey]||[];
+ activities.forEach(a=>{
+  const b=document.createElement('button');b.className='activity'+(chosen.includes(a.id)?' active':'');
+  b.setAttribute('aria-pressed',String(chosen.includes(a.id)));
+  b.innerHTML=`<span class="emoji ${a.cls}">${a.emoji}</span><span class="grow"><span class="act-name">${a.name}</span><div class="act-hint">${a.hint}</div></span><span class="check">${chosen.includes(a.id)?'✓':''}</span>`;
+  b.addEventListener('click',()=>{
+   const list=records[selectedKey]||[];
+   records[selectedKey]=list.includes(a.id)?list.filter(x=>x!==a.id):[...list,a.id];
+   if(!records[selectedKey].length)delete records[selectedKey];
+   save();render();
+  });wrap.appendChild(b)
+ })
+}
+function renderStats(){
+ const prefix=`${viewYear}-${String(viewMonth+1).padStart(2,'0')}-`;
+ const keys=Object.keys(records).filter(k=>k.startsWith(prefix)&&records[k]?.length);
+ document.getElementById('daysCount').innerHTML=`${keys.length} <small>天</small>`;
+ document.getElementById('sessionsCount').innerHTML=`${keys.reduce((n,k)=>n+records[k].length,0)} <small>次</small>`;
+}
+function render(){renderCalendar();renderActivities();renderStats()}
+document.getElementById('prev').onclick=()=>{viewMonth--;if(viewMonth<0){viewMonth=11;viewYear--}render()};
+document.getElementById('next').onclick=()=>{viewMonth++;if(viewMonth>11){viewMonth=0;viewYear++}render()};
+document.getElementById('clearDay').onclick=()=>{if(records[selectedKey]){delete records[selectedKey];save();render();toast('已清除当天记录')}else toast('当天没有记录')};
+document.getElementById('todayBtn').onclick=()=>{const d=new Date();viewYear=d.getFullYear();viewMonth=d.getMonth();selectedKey=keyOf(d);render()};
+document.getElementById('exportBtn').onclick=()=>{
+ const blob=new Blob([JSON.stringify({app:'运动打卡',version:1,exportedAt:new Date().toISOString(),records},null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`运动打卡备份-${keyOf(new Date())}.json`;a.click();URL.revokeObjectURL(url);toast('已生成备份文件')
+};
+document.getElementById('importBtn').onclick=()=>document.getElementById('fileInput').click();
+document.getElementById('fileInput').onchange=async e=>{
+ const file=e.target.files[0];if(!file)return;
+ try{const data=JSON.parse(await file.text());const incoming=data.records||data;if(!incoming||typeof incoming!=='object'||Array.isArray(incoming))throw Error('format');
+  let valid={};for(const [k,v] of Object.entries(incoming)){if(/^\d{4}-\d{2}-\d{2}$/.test(k)&&Array.isArray(v))valid[k]=activities.map(a=>a.id).filter(id=>v.includes(id))}
+  if(!confirm('导入备份将合并同日期记录。继续吗？'))return;
+  records={...records,...valid};save();render();toast('备份导入完成')
+ }catch(err){toast('文件格式不正确，无法导入')}finally{e.target.value=''}
+};
+render();
+</script>
+</body>
+</html>
