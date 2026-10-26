@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f5f7f8">
+<title>我的泳衣衣橱</title>
+<style>
+:root{--bg:#f5f7f8;--card:#fff;--ink:#19313a;--muted:#70838a;--line:#e3eaec;--accent:#176b70;--accent2:#dcefee;--coral:#f3e3dc;--shadow:0 5px 22px rgba(25,49,58,.06)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC","Helvetica Neue",sans-serif;padding:env(safe-area-inset-top) 0 calc(22px + env(safe-area-inset-bottom));}
+button,input,textarea,select{font:inherit}button{cursor:pointer;touch-action:manipulation}
+.wrap{max-width:760px;margin:auto;padding:18px 16px 30px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:6px 0 18px}.eyebrow{font-size:11px;letter-spacing:2px;color:var(--accent);font-weight:800}.title{font-size:27px;font-weight:800;letter-spacing:-.7px;margin:4px 0}.subtitle{font-size:13px;color:var(--muted)}.wave{width:48px;height:48px;border-radius:17px;background:var(--accent2);display:grid;place-items:center;font-size:25px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:18px}.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:13px 11px;min-width:0}.stat .label{font-size:11px;color:var(--muted)}.stat .num{font-size:21px;font-weight:800;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.stat .unit{font-size:11px;font-weight:500;color:var(--muted)}
+.toolbar{display:flex;gap:8px;margin-bottom:15px}.btn{border:0;border-radius:13px;padding:12px 14px;font-weight:700;font-size:13px}.primary{background:var(--accent);color:white;flex:1}.secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}.small{padding:9px 11px;font-size:12px;border-radius:11px}.searchrow{display:flex;gap:8px;margin-bottom:14px}.search{width:100%;border:1px solid var(--line);background:white;border-radius:12px;padding:12px 13px;outline:none}.sort{border:1px solid var(--line);border-radius:12px;background:#fff;padding:0 10px;color:var(--ink);max-width:125px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.item{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);min-width:0}.photo{width:100%;aspect-ratio:1/1.08;background:linear-gradient(145deg,#e7f1f0,#f5e9e2);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}.photo img{width:100%;height:100%;object-fit:cover}.placeholder{font-size:44px;opacity:.7}.countpill{position:absolute;top:9px;left:9px;background:rgba(255,255,255,.92);border-radius:99px;padding:5px 8px;font-size:11px;font-weight:750;backdrop-filter:blur(8px)}.itembody{padding:12px}.itemname{font-size:15px;font-weight:800;overflow-wrap:anywhere}.brand{font-size:11px;color:var(--muted);margin-top:3px;min-height:15px}.costline{display:flex;align-items:baseline;gap:4px;margin:11px 0 3px}.cost{font-size:23px;font-weight:850;letter-spacing:-.5px}.costlabel{font-size:10px;color:var(--muted)}.meta{font-size:11px;color:var(--muted);line-height:1.65}.cardactions{display:flex;gap:6px;margin-top:11px}.cardactions button{flex:1;min-width:0}.wearbtn{background:var(--accent2);color:var(--accent);border:0;border-radius:10px;padding:10px 4px;font-size:12px;font-weight:800}.morebtn{background:#f4f6f6;color:var(--ink);border:0;border-radius:10px;padding:10px 4px;font-size:12px;font-weight:700}
+.empty{grid-column:1/-1;text-align:center;padding:42px 18px;border:1px dashed #cbd8da;border-radius:18px;color:var(--muted);background:#fff}.empty .emoji{font-size:42px}.empty strong{display:block;color:var(--ink);margin:12px 0 5px}
+.note{margin:18px 2px 0;font-size:11px;color:var(--muted);line-height:1.6}.footer{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px}.footer button{flex:1}
+dialog{border:0;border-radius:22px;padding:0;width:min(560px,calc(100% - 24px));max-height:88dvh;box-shadow:0 20px 70px #0b262b40;color:var(--ink)}dialog::backdrop{background:#102a2f77;backdrop-filter:blur(3px)}.modalhead{padding:18px 19px 12px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.modalhead h2{margin:0;font-size:19px}.x{border:0;background:#f1f4f4;border-radius:50%;width:34px;height:34px;font-size:19px}.modalbody{padding:17px 19px 22px;overflow:auto;max-height:calc(88dvh - 68px)}.field{margin-bottom:14px}.field label{display:block;font-size:12px;font-weight:750;margin-bottom:7px}.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fbfcfc;outline:none;color:var(--ink)}.field textarea{min-height:70px;resize:vertical}.rowfields{display:grid;grid-template-columns:1fr 1fr;gap:10px}.preview{width:100%;max-height:220px;object-fit:contain;border-radius:12px;background:#f2f5f5;margin-top:8px}.hint{font-size:11px;color:var(--muted);line-height:1.55;margin-top:5px}.formactions{display:flex;gap:8px;margin-top:18px}.formactions button{flex:1}.history{display:flex;flex-direction:column;gap:8px;margin-top:12px}.historyrow{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:#f6f8f8;border-radius:11px;font-size:13px}.historyrow button{border:0;background:transparent;color:#a04d42;font-weight:700}.tabs{display:flex;gap:7px;margin-bottom:13px}.tab{border:1px solid var(--line);background:#fff;color:var(--muted);padding:9px 11px;border-radius:10px;font-size:12px}.tab.active{background:var(--accent2);color:var(--accent);border-color:#c4e1df;font-weight:800}.hidden{display:none!important}
+@media(min-width:600px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.photo{aspect-ratio:1/1.1}.wrap{padding-top:28px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top"><div><div class="eyebrow">SWIMWEAR WARDROBE</div><h1 class="title">我的泳衣衣橱</h1><div class="subtitle">每一次下水，都让单次成本更值得 ✦</div></div><div class="wave">🌊</div></header>
+  <section class="stats">
+    <div class="stat"><div class="label">泳衣件数</div><div class="num" id="statCount">0 <span class="unit">件</span></div></div>
+    <div class="stat"><div class="label">累计购买</div><div class="num" id="statSpend">¥0</div></div>
+    <div class="stat"><div class="label">累计穿着</div><div class="num" id="statWears">0 <span class="unit">次</span></div></div>
+  </section>
+  <div class="toolbar"><button class="btn primary" id="addBtn">＋ 添加泳衣</button><button class="btn secondary" id="backupBtn">备份 / 恢复</button></div>
+  <div class="searchrow"><input id="search" class="search" placeholder="搜索名称或品牌…" aria-label="搜索泳衣"><select id="sort" class="sort" aria-label="排序"><option value="recent">最近添加</option><option value="cost">单次成本低→高</option><option value="wears">穿着次数多→少</option><option value="price">购买价格高→低</option></select></div>
+  <main id="grid" class="grid"></main>
+  <p class="note">单次成本 = 购买价格 ÷ 穿着次数。新增泳衣后，可补录过去穿着次数，或逐条添加历史日期。首次使用建议先做一次备份。</p>
+  <div class="footer"><button class="btn secondary" id="exportCsv">导出表格 CSV</button><button class="btn secondary" id="helpBtn">保存与 iCloud 说明</button></div>
+</div>
+
+<dialog id="editDialog"><div class="modalhead"><h2 id="editTitle">添加泳衣</h2><button class="x" data-close="editDialog" aria-label="关闭">×</button></div><div class="modalbody">
+<form id="editForm">
+<input type="hidden" id="editId">
+<div class="field"><label for="photoInput">泳衣照片</label><input id="photoInput" type="file" accept="image/*"><div class="hint">可以从照片图库选择，也可以现场拍摄。图片会自动压缩后保存在本机。</div><img id="photoPreview" class="preview hidden" alt="泳衣照片预览"><button type="button" id="removePhoto" class="btn secondary small hidden" style="margin-top:7px">移除照片</button></div>
+<div class="field"><label for="nameInput">名称 *</label><input id="nameInput" required maxlength="80" placeholder="例如：黑色训练连体泳衣"></div>
+<div class="rowfields"><div class="field"><label for="brandInput">品牌（选填）</label><input id="brandInput" maxlength="80" placeholder="品牌"></div><div class="field"><label for="priceInput">购买价格（元）*</label><input id="priceInput" required type="number" min="0" step="0.01" placeholder="0.00"></div></div>
+<div class="rowfields"><div class="field"><label for="dateInput">购买日期（选填）</label><input id="dateInput" type="date"></div><div class="field"><label for="wearInput">过去穿过几次？*</label><input id="wearInput" required type="number" min="0" max="100000" step="1" value="0"></div></div>
+<div class="field"><label for="notesInput">备注（选填）</label><textarea id="notesInput" maxlength="500" placeholder="尺码、材质、购买渠道等"></textarea></div>
+<div class="field"><label for="historyDate">补录具体穿着日期（选填）</label><div class="rowfields"><input id="historyDate" type="date" aria-label="历史穿着日期"><button type="button" id="addHistory" class="btn secondary">＋ 添加日期</button></div><div class="hint">如果已填写“过去穿过几次”，这里可以继续补记具体日期。添加的日期会计入总次数。</div><div id="historyList" class="history"></div></div>
+<div class="formactions"><button type="button" class="btn secondary" data-close="editDialog">取消</button><button type="submit" class="btn primary">保存泳衣</button></div>
+</form></div></dialog>
+
+<dialog id="wearDialog"><div class="modalhead"><h2 id="wearTitle">记录穿着</h2><button class="x" data-close="wearDialog">×</button></div><div class="modalbody">
+<div class="field"><label for="wearDate">穿着日期</label><input id="wearDate" type="date"><div class="hint">默认今天；可选择过去日期补录。每保存一条日期，穿着次数增加 1。</div></div>
+<div class="formactions"><button class="btn secondary" data-close="wearDialog" type="button">取消</button><button id="saveWear" class="btn primary" type="button">确认记录</button></div>
+</div></dialog>
+
+<dialog id="detailDialog"><div class="modalhead"><h2>穿着记录</h2><button class="x" data-close="detailDialog">×</button></div><div class="modalbody"><div id="detailSummary"></div><div class="history" id="detailHistory"></div><div class="formactions"><button id="addFromDetail" class="btn primary">＋ 补记一次</button><button id="editFromDetail" class="btn secondary">编辑泳衣</button></div></div></dialog>
+
+<dialog id="backupDialog"><div class="modalhead"><h2>备份 / 恢复数据</h2><button class="x" data-close="backupDialog">×</button></div><div class="modalbody">
+<p style="font-size:13px;line-height:1.65;color:var(--muted);margin-top:0">导出 JSON 会包含泳衣信息、压缩后的照片和穿着日期。建议把文件存到“文件”App 的 iCloud Drive。换设备或清理浏览器前，可从备份恢复。</p>
+<div class="formactions"><button id="exportJson" class="btn primary">导出完整备份</button><button id="importJsonBtn" class="btn secondary">导入备份</button><input id="importJson" class="hidden" type="file" accept=".json,application/json"></div>
+<div class="field" style="margin-top:18px"><label>恢复方式</label><select id="importMode"><option value="replace">替换当前数据（推荐用于恢复）</option><option value="merge">合并数据（同 ID 以备份为准）</option></select></div>
+<div class="hint">注意：网页托管在 GitHub Pages 并不会自动同步数据到 iCloud。此版本使用本机浏览器存储，iCloud 通过手动备份文件实现保管与迁移。</div>
+<div class="formactions"><button id="clearAll" class="btn secondary">清空本机数据</button></div>
+</div></dialog>
+
+<dialog id="helpDialog"><div class="modalhead"><h2>保存与 iCloud 说明</h2><button class="x" data-close="helpDialog">×</button></div><div class="modalbody" style="font-size:13px;line-height:1.75">
+<p><b>怎么在 iPhone 上用</b></p><ol><li>用 Safari 打开这个网页。</li><li>点分享按钮，选择“添加到主屏幕”。</li><li>以后从主屏幕打开，添加泳衣、选照片或记录穿着。</li></ol>
+<p><b>数据保存在哪里？</b></p><p>当前版本保存在这台 iPhone 的 Safari 网页数据中。它不需要账号或服务器，但清理 Safari 网站数据、换浏览器或换设备时，数据可能无法自动带过去。</p>
+<p><b>如何利用 iCloud？</b></p><p>在“备份 / 恢复”里导出完整 JSON，在系统分享面板选择“存储到文件”→ iCloud Drive。更新数据后重新导出并替换旧备份。换设备时从 iCloud Drive 选择备份文件导入。</p>
+<p><b>穿着次数怎么记？</b></p><p>如果只知道总次数，在编辑时填入“过去穿过几次”即可；如果想看每次日期，使用“补录具体穿着日期”或卡片上的“穿过了”逐条记录。已知总次数与逐条日期是分开的：填写总次数不会自动生成虚构日期。</p>
+<p><b>照片隐私</b></p><p>照片压缩后保存在本机网页数据及导出的备份里，不会由此页面主动上传到服务器。请妥善保管包含照片的备份文件。</p>
+</div></dialog>
+<script>
+const KEY='swimwear-wardrobe-v1';
+let items=[], currentPhoto='', pendingHistory=[], activeWearId=null, detailId=null;
+const $=id=>document.getElementById(id);
+const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+const money=n=>'¥'+(Number(n)||0).toLocaleString('zh-CN',{minimumFractionDigits:2,maximumFractionDigits:2});
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(items));return true}catch(e){alert('保存失败：本机网页存储空间可能不足。请先导出备份，或移除部分大照片后重试。');return false}}
+function load(){try{const v=JSON.parse(localStorage.getItem(KEY)||'[]');items=Array.isArray(v)?v:[]}catch{items=[]}render()}
+function totalWears(s){return Math.max(0,Number(s.baseWears)||0)+(Array.isArray(s.history)?s.history.length:0)}
+function render(){
+ const total=items.reduce((a,s)=>a+(Number(s.price)||0),0), wears=items.reduce((a,s)=>a+totalWears(s),0);
+ $('statCount').innerHTML=`${items.length} <span class="unit">件</span>`;$('statSpend').textContent=money(total);$('statWears').innerHTML=`${wears} <span class="unit">次</span>`;
+ const q=$('search').value.trim().toLowerCase(), sort=$('sort').value;
+ let arr=items.filter(s=>(s.name+' '+(s.brand||'')).toLowerCase().includes(q));
+ arr.sort((a,b)=>sort==='cost'?((totalWears(a)?a.price/totalWears(a):Infinity)-(totalWears(b)?b.price/totalWears(b):Infinity)):sort==='wears'?totalWears(b)-totalWears(a):sort==='price'?Number(b.price)-Number(a.price):Number(b.createdAt||0)-Number(a.createdAt||0));
+ $('grid').innerHTML=arr.length?arr.map(s=>{const n=totalWears(s),cost=n?money(Number(s.price)/n):'—';return `<article class="item"><div class="photo">${s.photo?`<img src="${s.photo}" alt="${esc(s.name)}">`:'<div class="placeholder">🩱</div>'}<div class="countpill">${n} 次穿着</div></div><div class="itembody"><div class="itemname">${esc(s.name)}</div><div class="brand">${esc(s.brand||'未填写品牌')}</div><div class="costline"><div class="cost">${cost}</div><div class="costlabel">/ 次</div></div><div class="meta">购入 ${money(s.price)}${s.purchaseDate?' · '+esc(s.purchaseDate):''}</div><div class="cardactions"><button class="wearbtn" data-wear="${s.id}">＋ 穿过了</button><button class="morebtn" data-detail="${s.id}">记录 / 编辑</button></div></div></article>`}).join(''):`<div class="empty"><div class="emoji">🩱</div><strong>${q?'没有找到这件泳衣':'衣橱还是空的'}</strong><div>${q?'试试其他名称或品牌':'先添加第一件泳衣，上传照片并填入价格吧。'}</div>${q?'':'<button class="btn primary" style="margin-top:15px" id="emptyAdd">＋ 添加第一件泳衣</button>'}</div>`;
+ $('emptyAdd')?.addEventListener('click',()=>openEdit());
+ document.querySelectorAll('[data-wear]').forEach(b=>b.onclick=()=>openWear(b.dataset.wear));
+ document.querySelectorAll('[data-detail]').forEach(b=>b.onclick=()=>openDetail(b.dataset.detail));
+}
+function openEdit(id=null){
+ const s=items.find(x=>x.id===id);$('editForm').reset();$('editId').value=s?.id||'';$('editTitle').textContent=s?'编辑泳衣':'添加泳衣';
+ currentPhoto=s?.photo||'';pendingHistory=s?JSON.parse(JSON.stringify(s.history||[])):[];
+ $('nameInput').value=s?.name||'';$('brandInput').value=s?.brand||'';$('priceInput').value=s?.price??'';$('dateInput').value=s?.purchaseDate||'';$('wearInput').value=s?.baseWears??0;$('notesInput').value=s?.notes||'';$('historyDate').value=today();
+ refreshPhoto();renderPendingHistory();$('editDialog').showModal();
+}
+function refreshPhoto(){$('photoPreview').src=currentPhoto||'';$('photoPreview').classList.toggle('hidden',!currentPhoto);$('removePhoto').classList.toggle('hidden',!currentPhoto)}
+function renderPendingHistory(){ $('historyList').innerHTML=pendingHistory.length?pendingHistory.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(h=>`<div class="historyrow"><span>${esc(h.date)}</span><button type="button" data-rmh="${h.id}">删除</button></div>`).join(''):'<div class="hint">还没有具体日期记录。</div>';document.querySelectorAll('[data-rmh]').forEach(b=>b.onclick=()=>{pendingHistory=pendingHistory.filter(h=>h.id!==b.dataset.rmh);renderPendingHistory()})}
+$('photoInput').addEventListener('change',async e=>{const f=e.target.files?.[0];if(!f)return;if(!f.type.startsWith('image/')){alert('请选择图片文件。');return}try{currentPhoto=await compressImage(f);refreshPhoto()}catch(err){alert('读取图片失败，请换一张图片试试。')}});
+function compressImage(file){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=reject;reader.onload=()=>{const img=new Image();img.onerror=reject;img.onload=()=>{const max=1000,scale=Math.min(1,max/Math.max(img.width,img.height)),c=document.createElement('canvas');c.width=Math.round(img.width*scale);c.height=Math.round(img.height*scale);c.getContext('2d').drawImage(img,0,0,c.width,c.height);resolve(c.toDataURL('image/jpeg',.78))};img.src=reader.result};reader.readAsDataURL(file)})}
+$('removePhoto').onclick=()=>{currentPhoto='';$('photoInput').value='';refreshPhoto()};
+$('addHistory').onclick=()=>{const date=$('historyDate').value;if(!date){alert('先选择穿着日期。');return}pendingHistory.push({id:crypto.randomUUID?.()||String(Date.now()+Math.random()),date});renderPendingHistory()};
+$('editForm').addEventListener('submit',e=>{e.preventDefault();const id=$('editId').value||('sw-'+Date.now()+'-'+Math.random().toString(36).slice(2,7));const old=items.find(s=>s.id===id);const baseWears=Math.max(0,parseInt($('wearInput').value||'0',10)||0);const s={id,name:$('nameInput').value.trim(),brand:$('brandInput').value.trim(),price:Number($('priceInput').value),purchaseDate:$('dateInput').value,baseWears,notes:$('notesInput').value.trim(),photo:currentPhoto,history:pendingHistory,createdAt:old?.createdAt||Date.now()};if(!s.name||!Number.isFinite(s.price)||s.price<0){alert('请填写名称和有效的购买价格。');return}if(old)items=items.map(x=>x.id===id?s:x);else items.unshift(s);if(persist()){$('editDialog').close();render()}});
+function openWear(id){activeWearId=id;$('wearDate').value=today();$('wearTitle').textContent='记录：'+(items.find(s=>s.id===id)?.name||'泳衣');$('wearDialog').showModal()}
+$('saveWear').onclick=()=>{const date=$('wearDate').value;if(!date){alert('请选择穿着日期。');return}const s=items.find(x=>x.id===activeWearId);if(!s)return;s.history=s.history||[];s.history.push({id:crypto.randomUUID?.()||String(Date.now()+Math.random()),date});if(persist()){$('wearDialog').close();render()}};
+function openDetail(id){detailId=id;const s=items.find(x=>x.id===id);if(!s)return;const n=totalWears(s);$('detailSummary').innerHTML=`<div style="font-weight:800;font-size:17px">${esc(s.name)}</div><div style="color:var(--muted);font-size:12px;margin-top:5px">总穿着 ${n} 次 · 单次成本 ${n?money(s.price/n):'尚无记录'}</div><div class="hint" style="margin-top:8px">“过去穿过几次”是未指定日期的次数；下面列出的是有具体日期的记录。</div>`;const hist=(s.history||[]).slice().sort((a,b)=>b.date.localeCompare(a.date));$('detailHistory').innerHTML=hist.length?hist.map(h=>`<div class="historyrow"><span>${esc(h.date)}</span><button data-delhist="${h.id}">删除</button></div>`).join(''):'<div class="hint">没有具体日期记录。</div>';document.querySelectorAll('[data-delhist]').forEach(b=>b.onclick=()=>{if(confirm('删除这条穿着记录？')){s.history=s.history.filter(h=>h.id!==b.dataset.delhist);persist();openDetail(id);render()}});$('detailDialog').showModal()}
+$('addFromDetail').onclick=()=>{ $('detailDialog').close();openWear(detailId)};
+$('editFromDetail').onclick=()=>{ $('detailDialog').close();openEdit(detailId)};
+$('addBtn').onclick=()=>openEdit();$('search').oninput=render;$('sort').onchange=render;
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>$(b.dataset.close).close());
+$('backupBtn').onclick=()=> $('backupDialog').showModal();$('helpBtn').onclick=()=> $('helpDialog').showModal();
+function downloadBlob(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000)}
+$('exportJson').onclick=()=>downloadBlob(new Blob([JSON.stringify({format:'swimwear-wardrobe',version:1,exportedAt:new Date().toISOString(),items},null,2)],{type:'application/json'}),`swimwear-backup-${today()}.json`);
+$('importJsonBtn').onclick=()=>$('importJson').click();
+$('importJson').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;try{const data=JSON.parse(await f.text()),incoming=Array.isArray(data)?data:data.items;if(!Array.isArray(incoming))throw new Error('格式错误');if($('importMode').value==='replace'){if(!confirm(`将导入 ${incoming.length} 件泳衣，并替换本机现有的 ${items.length} 件数据。建议先导出现有备份。继续吗？`))return;items=incoming}else{const map=new Map(items.map(s=>[s.id,s]));incoming.forEach(s=>map.set(s.id||('import-'+Math.random()),s));items=[...map.values()]}if(persist()){render();$('backupDialog').close();alert('导入完成。')} }catch(err){alert('导入失败：文件不是有效的泳衣衣橱备份。')}finally{$('importJson').value=''}};
+$('clearAll').onclick=()=>{if(confirm('确定清空本机所有泳衣和记录吗？此操作无法撤销。请先导出备份。')){items=[];persist();render();$('backupDialog').close()}};
+$('exportCsv').onclick=()=>{const rows=[['名称','品牌','购买价格','购买日期','未指定日期的过去次数','有日期记录次数','总穿着次数','平均每次成本','备注'],...items.map(s=>{const n=totalWears(s);return[s.name,s.brand,s.price,s.purchaseDate,s.baseWears||0,(s.history||[]).length,n,n?(Number(s.price)/n).toFixed(2):'',s.notes]})];const csv='\ufeff'+rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');downloadBlob(new Blob([csv],{type:'text/csv;charset=utf-8'}),`swimwear-${today()}.csv`)};
+load();
+</script>
+</body>
+</html>
